@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Pausa : MonoBehaviour
 {
@@ -23,5 +24,10 @@ public class Pausa : MonoBehaviour
         botonPausa.SetActive(true);
         menuPausa.SetActive(false);
 
+    }
+
+    public void mostrarGameOver()
+    {
+        SceneManager.LoadScene("Game Over");
     }
 }
