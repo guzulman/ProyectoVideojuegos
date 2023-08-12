@@ -15,6 +15,10 @@ public class PatrolController : MonoBehaviour
 
     Rigidbody2D _rb;
 
+    
+
+    int vidas = 3;
+    public PlayerHealth playerHealth;
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -40,4 +44,24 @@ public class PatrolController : MonoBehaviour
         transform.Rotate(0.0F, 180.0F, 0.0F);
         speed *= -1;
     }
+
+
+    public void perderVidas()
+    {
+        vidas -= 1;
+        playerHealth.desactivarVida(vidas);
+    }
+
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+
+            GameManger.Instance.perderVida();
+
+
+        }
+    }
+
 }

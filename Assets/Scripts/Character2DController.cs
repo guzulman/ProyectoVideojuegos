@@ -5,18 +5,25 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Character2DController : MonoBehaviour
 {
+    readonly object _lock = new object();
+    static Character2DController _instance;
 
-    [Header ("Movement")]
+    public static Character2DController Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+
+    [Header("Movement")]
     [SerializeField]
     float moveSpeed = 300.0F;
 
     [SerializeField]
     bool isFacingRight = true;
 
-    [SerializeField]
-    float ClampedMovement = 10.0F;
-
-    [Header ("Jump")]
+    [Header("Jump")]
     [SerializeField]
     float jumpForce = 140.0F;
 
@@ -32,8 +39,11 @@ public class Character2DController : MonoBehaviour
     [SerializeField]
     LayerMask groundMask;
 
+    [SerializeField]
+    float ClampedMovement = 10.0F;
 
-    [Header ("Extras")]
+
+    [Header("Extras")]
     [SerializeField]
     Animator animator;
 
@@ -44,9 +54,21 @@ public class Character2DController : MonoBehaviour
     bool _isMoving;
     bool _isJumpPressed;
     bool _isJumping;
-    
+
     void Awake()
     {
+
+        if (_instance == null)
+        {
+            lock (_lock)
+            {
+                if (_instance == null)
+                {
+                    _instance = this;
+                }
+            }
+        }
+
         _rb = GetComponent<Rigidbody2D>();
         _gravityY = -Physics2D.gravity.y;
     }
@@ -73,7 +95,7 @@ public class Character2DController : MonoBehaviour
         {
             _lastTimeJumpPressed = 0.0F;
         }
-        
+
         if (_isJumpPressed)
         {
             bool _isGrounded = isGrounded();
