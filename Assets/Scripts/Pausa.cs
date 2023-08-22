@@ -28,6 +28,7 @@ public class Pausa : MonoBehaviour
 
     public void mostrarGameOver()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("Game Over");
     }
 }

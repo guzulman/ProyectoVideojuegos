@@ -45,7 +45,7 @@ public class PatrolStateController : MonoBehaviour
         }
 
         transform.position =
-            Vector2.MoveTowards(transform.position, _target.position, speed * Time.deltaTime);  
+            Vector2.MoveTowards(transform.position, _target.position, speed * Time.deltaTime);
     }
     private void SetNextTarget(int index)
     {
@@ -60,10 +60,21 @@ public class PatrolStateController : MonoBehaviour
                 transform.Rotate(0.0F, 180.0F, 0.0F);
             }
         }
-        else if(_target.position.x < transform.position.x && isFacingRight)
+        else if (_target.position.x < transform.position.x && isFacingRight)
         {
             isFacingRight = !isFacingRight;
             transform.Rotate(0.0F, 180.0F, 0.0F);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+
+            GameManger.Instance.perderVida();
+
+
         }
     }
 }

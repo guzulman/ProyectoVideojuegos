@@ -38,6 +38,17 @@ public static GameManger Instance { get; private set; }
 
 
     }
+    public void perderVidaPorCaida()
+    {
+        vidas -= 3;
+        if (vidas == 0 || vidas <0)
+        {
+            SceneManager.LoadScene(2);
+        }
+        //playerHealth.desactivarVida(vidas);
+
+
+    }
 
     public bool recuperarVida()
     {

@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public void FirstScene()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(0);
     }
     /// <summary>
